@@ -1,26 +1,39 @@
-import { createContext, useContext, useState } from "react";
-
-import TodoInput from "./TodoInput";
+import React, { useState } from "react";
+import data from "./data.json";
 import TodoList from "./TodoList";
-import TodoListFilters from "./TodoListFilters";
-
-const TodoItemsContext = createContext();
-
-export const useTodoItems = () => {
-  return useContext(TodoItemsContext);
-}
+import TodoForm from "./TodoForm";
 
 function App() {
+  const [todoList, setTodoList] = useState(data);
+  const [filter, setFilter] = useState("All");
 
-  const [todoItems, setTodoItems] = useState([]);
+  const handleToggle = (id) => {
+    let mapped = todoList.map((task) => {
+      return task.id === Number(id)
+        ? { ...task, complete: !task.complete }
+        : { ...task };
+    });
+    setTodoList(mapped);
+  };
+
+  const addTask = (userInput) => {
+    let copy = [...todoList];
+    copy = [
+      ...copy,
+      { id: todoList.length + 1, task: userInput, complete: false }
+    ];
+    setTodoList(copy);
+  };
 
   return (
-    <div>
-      <TodoItemsContext.Provider value={{ todoItems, setTodoItems }}>
-        <TodoInput />
-        <TodoList />
-        <TodoListFilters />
-      </TodoItemsContext.Provider>
+    <div className="App">
+      <TodoForm addTask={addTask} />
+      <TodoList
+        todoList={todoList}
+        filter={filter}
+        setFilter={setFilter}
+        handleToggle={handleToggle}
+      />
     </div>
   );
 }

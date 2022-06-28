@@ -1,32 +1,29 @@
-import { useTodoItems } from "./App";
+import React from "react";
+import Todo from "./Todo";
 
-export default function TodoList() {
-    const { todoItems, setTodoItems } = useTodoItems();
-
-    console.log(todoItems);
-
-    const handleClick = (targetIndex) => {
-        setTodoItems(state => {
-            return state.map((item, index) => {
-                return index === targetIndex ? {...item, complete: true} : item;
-            });
-        });
+const getFilteredTodoList = (todos, filter) => {
+  return todos.filter((todo) => {
+    if (filter === "Completed") {
+      return todo.complete;
+    } else if (filter === "Active") {
+      return !todo.complete;
+    } else {
+      return todo;
     }
+  });
+};
 
-    return(
-        <ul>
-            {todoItems.map((item, index) => {
-                return (
-                    <li 
-                        key={item.name + index} 
-                        onClick={() => {handleClick(index)}}
-                        style={item.complete ? {textDecoration: "line-through"} : {}}
-                    >
-                        {item.name}
-                    </li>
-                );
-            })}
-        </ul>
-    );
+const TodoList = ({ todoList, filter, setFilter, handleToggle }) => {
+  return (
+    <ul>
+      {getFilteredTodoList(todoList, filter).map((todo) => {
+        return <Todo todo={todo} handleToggle={handleToggle} />;
+      })}
+      <button onClick={() => setFilter("Completed")}>Completed</button>
+      <button onClick={() => setFilter("Active")}>Active</button>
+      <button onClick={() => setFilter("All")}>All</button>
+    </ul>
+  );
+};
 
-}
+export default TodoList;
