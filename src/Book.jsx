@@ -4,11 +4,15 @@ import { useStore } from "./store";
 const Book = ({ book }) => {
 
     const toggleComplete = useStore((state) => state.toggleComplete);
+    const deleteBook = useStore((state) => state.delete);
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        toggleComplete(e.currentTarget.id);
+    const handleBookTitleClick = (e) => {
+        toggleComplete(e.currentTarget.parentNode.id);
     };
+
+    const handleDeleteButtonClick = (e) => {
+        deleteBook(e.currentTarget.parentNode.id);
+    }
 
     return (
         <li
@@ -16,10 +20,11 @@ const Book = ({ book }) => {
             key={book.id + book.title}
             name="book"
             value={book.id}
-            onClick={handleClick}
             className={book.complete ? "book strike" : "book"}
         >
-            {book.title}
+            <span onClick={handleBookTitleClick}>{book.title}</span>&nbsp;
+            <button onClick={handleDeleteButtonClick}>Delete</button>
+            <button>Edit</button>
         </li>
     );
 };

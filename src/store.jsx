@@ -10,10 +10,17 @@ export const useStore = create((set) => ({
                 state.books.push(newBook);
             })
         ),
+    delete: (id) =>
+        set(
+            produce((state) => {
+                const bookIdx = state.books.findIndex((b) => b.id === Number(id));
+                state.books.splice(bookIdx, 1);
+            })
+        ),
     toggleComplete: (id) =>
         set(
             produce((state) => {
-                const book = state.books.find((t) => t.id === Number(id));
+                const book = state.books.find((b) => b.id === Number(id));
                 book.complete = !book.complete;
             })
         ),
