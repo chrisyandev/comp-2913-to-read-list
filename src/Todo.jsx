@@ -1,10 +1,13 @@
 import React from "react";
+import { useStore } from "./store";
 
-const Todo = ({ todo, handleToggle }) => {
+const Todo = ({ todo }) => {
+
+    const toggleComplete = useStore((state) => state.toggleComplete);
 
     const handleClick = (e) => {
         e.preventDefault();
-        handleToggle(e.currentTarget.id);
+        toggleComplete(e.currentTarget.id);
     };
 
     return (

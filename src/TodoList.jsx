@@ -15,14 +15,14 @@ const getFilteredTodoList = (todos, filter) => {
     });
 };
 
-const TodoList = ({ handleToggle }) => {
+const TodoList = () => {
     const todos = useStore((state) => state.todos);
     const filter = useStore((state) => state.filter);
     const setFilter = useStore((state) => state.setFilter);
     return (
     <ul>
         {getFilteredTodoList(todos, filter).map((todo, index) => {
-            return <Todo key={todo.title+index} todo={todo} handleToggle={handleToggle} />;
+            return <Todo key={todo.title+index} todo={todo} />;
         })}
         <button onClick={() => setFilter("Completed")}>Completed</button>
         <button onClick={() => setFilter("Active")}>Active</button>
