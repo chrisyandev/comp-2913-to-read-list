@@ -12,14 +12,14 @@ const Todo = ({ todo }) => {
 
     return (
         <li
-        id={todo.id}
-        key={todo.id + todo.title}
-        name="todo"
-        value={todo.id}
-        onClick={handleClick}
-        className={todo.complete ? "todo strike" : "todo"}
+            id={todo.id}
+            key={todo.id + todo.title}
+            name="todo"
+            value={todo.id}
+            onClick={handleClick}
+            className={todo.complete ? "todo strike" : "todo"}
         >
-        {todo.title}
+            {todo.title}
         </li>
     );
 };

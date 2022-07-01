@@ -1,21 +1,26 @@
 import create from "zustand";
+import produce from "immer";
 
 export const useStore = create((set) => ({
     todos: [],
     filter: "All",
-    add: (newTodo) => set((state) => ({ todos: [...state.todos, newTodo]})),
-    toggleComplete: (id) =>
-        set(state => ({
-            todos: state.todos.map(todo => {
-                if (todo.id === Number(id)) {
-                    return {
-                        ...todo,
-                        complete: !todo.complete
-                    };
-                } else {
-                    return todo;
-                }
+    add: (newTodo) => 
+        set(
+            produce((state) => {
+                state.todos.push(newTodo);
             })
-        })),
-    setFilter: (newFilter) => set(() => ({ filter: newFilter }))
+        ),
+    toggleComplete: (id) =>
+        set(
+            produce((state) => {
+                const todo = state.todos.find((t) => t.id === Number(id));
+                todo.complete = !todo.complete;
+            })
+        ),
+    setFilter: (newFilter) =>
+        set(
+            produce((state) => {
+                state.filter = newFilter;
+            })
+        ),
 }));
