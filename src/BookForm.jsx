@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useStore } from "./store";
 
-const TodoForm = () => {
+const BookForm = () => {
     const [userInput, setUserInput] = useState("");
     const add = useStore((state) => state.add);
-    const todos = useStore((state) => state.todos);
+    const books = useStore((state) => state.books);
 
     const handleChange = (e) => {
         setUserInput(e.currentTarget.value);
@@ -12,15 +12,15 @@ const TodoForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        add({ id: todos.length + 1, title: userInput, complete: false });
+        add({ id: books.length + 1, title: userInput, complete: false });
         setUserInput("");
     };
     return (
         <form onSubmit={handleSubmit}>
         <input value={userInput} type="text" onChange={handleChange} />
-        <button>Add Todo</button>
+        <button>Add Book</button>
         </form>
     );
 };
 
-export default TodoForm;
+export default BookForm;

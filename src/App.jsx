@@ -1,11 +1,11 @@
-import TodoList from "./TodoList";
-import TodoForm from "./TodoForm";
+import BookList from "./BookList";
+import BookForm from "./BookForm";
 
 function App() {
   return (
     <div className="App">
-      <TodoForm />
-      <TodoList />
+      <BookForm />
+      <BookList />
     </div>
   );
 }

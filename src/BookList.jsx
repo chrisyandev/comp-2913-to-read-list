@@ -1,28 +1,28 @@
 import React from "react";
 import { useStore } from "./store";
 
-import Todo from "./Todo";
+import Book from "./Book";
 
-const getFilteredTodoList = (todos, filter) => {
-        return todos.filter((todo) => {
+const getFilteredBookList = (books, filter) => {
+        return books.filter((book) => {
         if (filter === "Completed") {
-            return todo.complete;
+            return book.complete;
         } else if (filter === "Active") {
-            return !todo.complete;
+            return !book.complete;
         } else {
-            return todo;
+            return book;
         }
     });
 };
 
-const TodoList = () => {
-    const todos = useStore((state) => state.todos);
+const BookList = () => {
+    const books = useStore((state) => state.books);
     const filter = useStore((state) => state.filter);
     const setFilter = useStore((state) => state.setFilter);
     return (
     <ul>
-        {getFilteredTodoList(todos, filter).map((todo, index) => {
-            return <Todo key={todo.title+index} todo={todo} />;
+        {getFilteredBookList(books, filter).map((book, index) => {
+            return <Book key={book.title+index} book={book} />;
         })}
         <button onClick={() => setFilter("Completed")}>Completed</button>
         <button onClick={() => setFilter("Active")}>Active</button>
@@ -31,4 +31,4 @@ const TodoList = () => {
     );
 };
 
-export default TodoList;
+export default BookList;

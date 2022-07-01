@@ -1,7 +1,7 @@
 import React from "react";
 import { useStore } from "./store";
 
-const Todo = ({ todo }) => {
+const Book = ({ book }) => {
 
     const toggleComplete = useStore((state) => state.toggleComplete);
 
@@ -12,16 +12,16 @@ const Todo = ({ todo }) => {
 
     return (
         <li
-            id={todo.id}
-            key={todo.id + todo.title}
-            name="todo"
-            value={todo.id}
+            id={book.id}
+            key={book.id + book.title}
+            name="book"
+            value={book.id}
             onClick={handleClick}
-            className={todo.complete ? "todo strike" : "todo"}
+            className={book.complete ? "book strike" : "book"}
         >
-            {todo.title}
+            {book.title}
         </li>
     );
 };
 
-export default Todo;
+export default Book;
