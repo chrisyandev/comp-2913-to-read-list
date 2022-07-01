@@ -5,9 +5,9 @@ import Book from "./Book";
 
 const getFilteredBookList = (books, filter) => {
         return books.filter((book) => {
-        if (filter === "Completed") {
+        if (filter === "Read") {
             return book.complete;
-        } else if (filter === "Active") {
+        } else if (filter === "Reading") {
             return !book.complete;
         } else {
             return book;
@@ -24,8 +24,8 @@ const BookList = () => {
         {getFilteredBookList(books, filter).map((book, index) => {
             return <Book key={book.title+index} book={book} />;
         })}
-        <button onClick={() => setFilter("Completed")}>Completed</button>
-        <button onClick={() => setFilter("Active")}>Active</button>
+        <button onClick={() => setFilter("Read")}>Read</button>
+        <button onClick={() => setFilter("Reading")}>Reading</button>
         <button onClick={() => setFilter("All")}>All</button>
     </ul>
     );
