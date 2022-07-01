@@ -2,6 +2,7 @@ import create from "zustand";
 
 export const useStore = create((set) => ({
     todos: [],
+    filter: "All",
     add: (newTodo) => set((state) => ({ todos: [...state.todos, newTodo]})),
     toggleComplete: (id) =>
         set(state => ({
@@ -15,5 +16,6 @@ export const useStore = create((set) => ({
                     return todo;
                 }
             })
-        }))
+        })),
+    setFilter: (newFilter) => set(() => ({ filter: newFilter }))
 }));

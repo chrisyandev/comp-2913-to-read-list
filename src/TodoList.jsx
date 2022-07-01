@@ -15,8 +15,10 @@ const getFilteredTodoList = (todos, filter) => {
     });
 };
 
-const TodoList = ({ filter, setFilter, handleToggle }) => {
+const TodoList = ({ handleToggle }) => {
     const todos = useStore((state) => state.todos);
+    const filter = useStore((state) => state.filter);
+    const setFilter = useStore((state) => state.setFilter);
     return (
     <ul>
         {getFilteredTodoList(todos, filter).map((todo, index) => {
