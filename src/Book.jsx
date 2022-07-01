@@ -5,6 +5,7 @@ const Book = ({ book }) => {
 
     const toggleComplete = useStore((state) => state.toggleComplete);
     const deleteBook = useStore((state) => state.delete);
+    const toggleShowEdit = useStore((state) => state.toggleShowEdit);
 
     const handleBookTitleClick = (e) => {
         toggleComplete(e.currentTarget.parentNode.id);
@@ -12,6 +13,10 @@ const Book = ({ book }) => {
 
     const handleDeleteButtonClick = (e) => {
         deleteBook(e.currentTarget.parentNode.id);
+    }
+
+    const handleEditButtonClick = (e) => {
+        toggleShowEdit(e.currentTarget.parentNode.id);
     }
 
     return (
@@ -24,7 +29,7 @@ const Book = ({ book }) => {
         >
             <span onClick={handleBookTitleClick}>{book.title}</span>&nbsp;
             <button onClick={handleDeleteButtonClick}>Delete</button>
-            <button>Edit</button>
+            <button onClick={handleEditButtonClick}>Edit</button>
         </li>
     );
 };

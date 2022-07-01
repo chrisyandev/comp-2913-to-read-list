@@ -2,11 +2,15 @@ import create from "zustand";
 import produce from "immer";
 
 export const useStore = create((set) => ({
+    nextId: 1,
     books: [],
     filter: "All",
+    showEdit: -1,
     add: (newBook) => 
         set(
             produce((state) => {
+                newBook.id = state.nextId;
+                state.nextId++;
                 state.books.push(newBook);
             })
         ),
@@ -15,6 +19,13 @@ export const useStore = create((set) => ({
             produce((state) => {
                 const bookIdx = state.books.findIndex((b) => b.id === Number(id));
                 state.books.splice(bookIdx, 1);
+            })
+        ),
+    edit: (id, newTitle) =>
+        set(
+            produce((state) => {
+                const book = state.books.find((b) => b.id === Number(id));
+                book.title = newTitle;
             })
         ),
     toggleComplete: (id) =>
@@ -28,6 +39,12 @@ export const useStore = create((set) => ({
         set(
             produce((state) => {
                 state.filter = newFilter;
+            })
+        ),
+    toggleShowEdit: (id) =>
+        set(
+            produce((state) => {
+                state.showEdit = (state.showEdit > -1) ? -1 : id;
             })
         ),
 }));
